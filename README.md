@@ -1,5 +1,7 @@
 # Proxy settings
 
+Ce script a été créé pour **Ubuntu**, aucun résultat n'est garanti avec quelconque autre distribution Linux / Mac
+
 ## Installation
 
 Télécharger les scripts en utilisant `git clone` ou directement en zip, puis en extrayant les fichiers. Pour installer le script, lancer la commande depuis le dossier de téléchargement : 
