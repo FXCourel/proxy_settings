@@ -1,0 +1,15 @@
+# Bash completion for change_proxy
+
+_change_prox()
+{
+	cur=${COMP_WORDS[COMP_CWORD]}
+	case "${cur}" in
+		h*) use="hoche" ;;
+		l*) use="lycee" ;;
+		m*) use="maison" ;;
+		o*) use="off" ;;
+		*) use="hoche off" ;;
+	esac
+	COMPREPLY=( $( compgen -W "$use" -- $cur ) )
+}
+complete -o default -o nospace -F _change_prox change_proxy

@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Test if executed as root
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be run as root" 1>&2
+	exit 1
+fi
+
+delete_files() {
+	rm -f /usr/bin/change_proxy
+	rm -f /etc/bash_completion.d/proxy_completion
+}
+
+echo "Deleting scripts..."
+delete_files
+echo "Done"

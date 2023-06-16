@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# This script changes the proxy according to wifi connection
+
+# Match argument with a wifi name
+# If it matches, change proxy settings
+
+case $1 in
+	"off"|"maison")
+		gsettings set org.gnome.system.proxy mode "none"
+		git config --global --unset-all http.proxy
+		echo "Success, proxy turned off"
+		;;
+	"hoche"|"lycee")
+		gsettings set org.gnome.system.proxy mode "manual"
+		git config --global --replace-all http.proxy "10.0.0.1:3128"
+		echo "Success, proxy changed to Hoche"
+		;;
+	*)
+		echo "Invalid argument"
+		exit 1
+		;;
+esac

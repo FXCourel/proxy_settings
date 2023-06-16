@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Test if executed as root
+if [ "$(id -u)" != "0" ]; then
+	echo "This script must be run as root" 1>&2
+	exit 1
+fi
+
+copy_files() {
+	cp -r change_proxy /usr/bin/
+	chmod +x /usr/bin/change_proxy
+	chmod +x uninstall_proxy_cmd
+	cp -r proxy_completion /etc/bash_completion.d/
+	chmod +x /etc/bash_completion.d/proxy_completion
+}
+
+echo "Updating scripts..."
+copy_files
+echo "Done"
