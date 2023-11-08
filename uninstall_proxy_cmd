@@ -1,14 +1,16 @@
 #!/bin/sh
 
 # Test if executed as root
-if [ "$(id -u)" != "0" ]; then
-	echo "This script must be run as root" 1>&2
+if [ "$(id -u)" = "0" ]; then
+	echo "This script sould not be run as root" 1>&2
 	exit 1
 fi
+# home="$(getent passwd $SUDO_USER | cut -d: -f6)"
+home=~
 
 delete_files() {
-	rm -f /usr/local/bin/change_proxy
-	rm -f /usr/local/etc/bash_completion.d/proxy_completion
+	rm -f $home/.local/bin/change_proxy
+	rm -f $home/.local/share/bash-completion/completions/change_proxy
 }
 
 echo "Deleting scripts..."

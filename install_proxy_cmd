@@ -1,20 +1,24 @@
 #!/bin/sh
 
 # Test if executed as root
-if [ "$(id -u)" != "0" ]; then
-	echo "This script must be run as root" 1>&2
+if [ "$(id -u)" = "0" ]; then
+	echo "This script must not be run as root" 1>&2
 	exit 1
 fi
+# home="$(getent passwd $SUDO_USER | cut -d: -f6)"
+home=~
 
 copy_files() {
-	mkdir /usr/local/bin
-	mkdir /usr/local/etc
-	mkdir /usr/local/etc/bash_completion.d/
-	cp -r change_proxy /usr/local/bin/
-	chmod +x /usr/local/bin/change_proxy
+	mkdir -p $home/.local/bin/
+	cp -r change_proxy $home/.local/bin/
+	chmod +x $home/.local/bin/change_proxy
 	chmod +x uninstall_proxy_cmd
-	cp -r proxy_completion /usr/local/etc/bash_completion.d/
-	chmod +x /usr/local/etc/bash_completion.d/proxy_completion
+	mkdir -p $home/.local/share/bash-completion/completions
+	# echo "for bcfile in ~/.bash_completion.d/* ; do\n  . $bcfile\ndone" >> $home/.bash_completion
+
+	cp -r proxy_completion $home/.local/share/bash-completion/completions
+	mv $home/.local/share/bash-completion/completions/proxy_completion $home/.local/share/bash-completion/completions/change_proxy
+	chmod +x $home/.local/share/bash-completion/completions/change_proxy
 }
 
 echo "Updating scripts..."
