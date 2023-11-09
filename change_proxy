@@ -16,6 +16,11 @@ case $1 in
 		git config --global --replace-all http.proxy "10.0.0.1:3128"
 		echo "Success, proxy changed to Hoche"
 		;;
+	"")
+		# If no argument is given, print current mode
+		mode=$(gsettings get org.gnome.system.proxy mode)
+		echo "Current mode: $mode"
+		;;
 	*)
 		echo "Invalid argument"
 		exit 1
